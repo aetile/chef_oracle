@@ -1,0 +1,3 @@
+<% @disks.each do |disk| %>
+ENV{DM_VG_NAME}=="<%= disk['vgname'] %>", ENV{DM_LV_NAME}=="<%= disk['lvname'] %>", SUBSYSTEM=="block", KERNEL=="dm-*", SYMLINK+="oracleasm/<%= disk['lvname'] %>", ACTION=="add|change", OWNER="<%= @owner %>", GROUP="<%= @group %>", MODE="<%= @mode %>" 
+<% end %>

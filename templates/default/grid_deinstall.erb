@@ -1,0 +1,46 @@
+#Copyright (c) 2005, 2009 Oracle Corporation.  All rights reserved.
+#Thu Mar 05 11:36:03 PST 2009
+LOCAL_NODE=<%= @host_name %>
+HOME_TYPE=SIHA
+ASM_REDUNDANCY=EXTERNAL
+ORACLE_BASE=<%= @oracle_base %>
+SCAN_PORT=0
+silent=false
+ASM_UPGRADE=false
+ORA_CRS_HOME=<%= @grid_home %>
+GPNPCONFIGDIR=<%= @oracle_home %>
+LOGDIR=/tmp/deinstall/logs/
+ASM_DISCOVERY_STRING=<%= @asm_discovery_str %>
+GPNPGCONFIGDIR=<%= @oracle_home %>
+ORACLE_OWNER=oracle
+ASM_DISKSTRING=
+CRS_STORAGE_OPTION=0
+ORACLE_BINARY_OK=true
+OCR_VOTINGDISK_IN_ASM=true
+ASM_ORACLE_BASE=<%= @oracle_base %>
+NETCFGJAR_NAME=netcfg.jar
+ORA_DBA_GROUP=dba
+JREDIR=<%= @grid_home %>/jdk/jre/
+ORA_ASM_GROUP=dba
+#LANGUAGE_ID='AMERICAN_AMERICA.WE8ISO8859P1'
+CSS_LEASEDURATION=400
+ASM_HOME=<%= @grid_home %>
+SHAREJAR_NAME=share.jar
+HELPJAR_NAME=help4.jar
+SILENT=false
+local=false
+#INVENTORY_LOCATION=<%= @inv_path %>
+INVENTORY_LOCATION=
+GNS_CONF=false
+JEWTJAR_NAME=jewt4.jar
+EMBASEJAR_NAME=oemlt.jar
+ASM_DISKS=<%= @asm_data %>
+ORACLE_HOME=<%= @oracle_home %>
+CRS_HOME=true
+ASM_IN_HOME=true
+EWTJAR_NAME=ewt3.jar
+ASM_DROP_DISKGROUPS=false
+ASM_LOCAL_SID=+ASM
+JLIBDIR=<%= @grid_home %>/jlib
+VNDR_CLUSTER=false
+ASM_DISK_GROUP=DATA

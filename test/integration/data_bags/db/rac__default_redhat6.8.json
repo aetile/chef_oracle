@@ -1,0 +1,27 @@
+{
+  "id": "rac",
+  "cluster_name": "RACTEST",
+  "resolver": {
+    "search": "local",
+    "nameservers": ["localhost"],
+    "options": {
+      "timeout": 1
+    }
+  },
+  "kernel": {
+    "hugepages": 200
+  },
+  "cluster_nodes": [{
+    "hostname": "node1",
+    "instance_num": 1,
+    "mgmt_ip": null,
+    "interconnect": ["eth5", "eth6"]
+  }, {
+    "hostname": "node2",
+    "mgmt_ip": null,
+    "interconnect": ["eth5", "eth6"]
+  }],
+  "deps": {
+    "rac": ["cvuqdisk", "bind", "openssh-server"]
+  }
+}

@@ -1,0 +1,4 @@
+SPFILE='+<%= @asm_data_dg %>/<%= @db_sid %>/spfile<%= @db_sid %>.ora'
+<% @initparams.each do |param| -%>
+<%= param %>
+<% end -%>

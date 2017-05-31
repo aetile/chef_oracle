@@ -1,0 +1,139 @@
+{
+  "id": "db",
+  "dbms": "Oracle DB Standard Edition",
+  "edition": "SE",
+  "version": "11.2.0.4",
+  "cluster": false,
+  "grub": {
+    "version": "2",
+    "config_file": "/boot/grub2/grub.cfg"
+  },
+  "asm": {
+    "enabled": true,
+    "asmlib": false,
+    "disks": [
+      {"lvname": "ora_data_01", "vgname": "vg02"},
+      {"lvname": "ora_redo_01", "vgname": "vg02"}
+    ],
+    "diskgroups": [
+      {"name": "DATA", "disks": [ "ora_data_01" ]},
+      {"name": "REDO", "disks": [ "ora_redo_01" ]}
+    ]
+  },
+  "superuser": "root",
+  "root_profile": "/etc/profile.d/oracle.sh",
+  "user": {
+    "name": "oracle",
+    "home": "/home/oracle",
+    "group": "oinstall",
+    "uid": 200,
+    "gid": 201,
+    "shell": "/bin/bash",
+    "extra_groups": [ { "name": "dba", "id": 200 } ]
+  },
+  "dba": {
+    "name": "dba",
+    "id": 200
+  },
+  "kernel": {
+    "hugepages": 300
+  },
+  "app_dir": "/opt/app",
+  "rman_dir": ["/opt/backup/rman"],
+  "repo": {
+    "rpm_repo_url": "http://192.168.0.14/rhel",
+    "asm_repo_url": "http://192.168.0.14/asm",
+    "ora_repo_url": "http://192.168.0.14/oracle"
+  },
+  "deps": {
+    "asm": ["oracleasm-support", "oracleasmlib", "kmod-oracleasm"],
+    "centos": {
+      "x86_84": [],
+      "i686": ["glibc", "glibc-devel"],
+      "adds": ["kernel-headers", "gcc", "compat-gcc-34", "glibc", "glibc-devel", "compat-glibc", "compat-db", "openmotif",
+               "cpp", "libstdc++", "compat-libstdc++-33", "libaio", "binutils", "ksh", "sysstat", "elfutils",
+               "binutils", "elfutils-libelf", "elfutils-libelf-devel", "glibc-common", "kmod-oracleasm",
+               "glibc-devel", "gcc-c++", "libaio-devel", "libgcc", "libstdc++-devel", "make", "unixODBC",
+               "unixODBC-devel", "device-mapper-multipath", "iscsi-initiator-utils", "cifs-utils",
+               "nfs-utils", "ntp", "ntpdate", "smartmontools"]
+    },
+    "redhat": {
+      "x86_64": ["binutils", "gcc", "gcc-c++", "glibc", "glibc-devel", "libgcc", "libstdc++",
+                 "libstdc++-devel", "libaio", "libaio-devel", "compat-libcap1", "compat-libstdc++-33",
+                 "make", "sysstat", "xorg-x11-apps", "xorg-x11-xauth", "xorg-x11-utils", "keyutils",
+                 "elfutils-libelf", "elfutils-libelf-devel", "libXi", "libXi-devel", "libXtst"],
+      "i686": ["glibc", "glibc-devel", "libgcc", "libstdc++", "libstdc++-devel", "libaio",
+               "libaio-devel", "libcap", "compat-libcap1", "libXi", "libXi-devel", "libXtst"],
+      "adds": ["device-mapper-multipath", "iscsi-initiator-utils", "unixODBC", "unixODBC-devel", "cifs-utils",
+               "nfs-utils", "ksh", "nc", "ntp", "ntpdate", "dbus", "redhat-lsb-core","smartmontools"]
+    }
+  },
+  "install_files": [
+    {"name": "p13390677_112040_LINUX_1of7.zip", "cksum": "a9d644"},
+    {"name": "p13390677_112040_LINUX_2of7.zip", "cksum": "73e049"},
+    {"name": "p13390677_112040_LINUX_3of7.zip", "cksum": "09c08a"},
+    {"name": "p13390677_112040_LINUX_4of7.zip", "cksum": "88b4a4"},
+    {"name": "p13390677_112040_LINUX_5of7.zip", "cksum": "f9c9d0"},
+    {"name": "p13390677_112040_LINUX_6of7.zip", "cksum": "b2e08f"},
+    {"name": "p13390677_112040_LINUX_7of7.zip", "cksum": "1cb47b"}
+  ],
+  "opatch": {
+    "platform_id": 226,
+    "latest": "p6880880_112000_LINUX.zip"
+  },
+  "install": {
+    "dbms": {
+      "option": "INSTALL_DB_SWONLY",
+      "edition": "SE",
+      "lang": "en",
+      "use_oraclesupport": "false",
+      "security_updates": "true",
+      "proxy_host": null,
+      "proxy_port": null,
+      "proxy_user": null,
+      "proxy_passwd": null,
+      "proxy_realm": null,
+      "skip_updates": "SKIP_UPDATES",
+      "opatch": []
+    },
+    "grid": {
+      "option": "HA_CONFIG",
+      "lang": "en",
+      "gns": "false",
+      "asm_sys_passwd": "poiuY10$",
+      "asm_snmp_passwd": "poiuY10$",
+      "asm_data_dg": "DATA",
+      "asm_redo_dg": "REDO",
+      "asm_redundancy": "EXTERNAL",
+      "asm_ausize": 4,
+      "asm_data_disks": "/dev/oracleasm/ora_data_01",
+      "asm_redo_disks": "/dev/oracleasm/ora_redo_01",
+      "asm_discovery_str": "/dev/oracleasm/*",
+      "skip_updates": "SKIP_UPDATES",
+      "opatch": [
+        {"id": "18286381", "file": "p18286381_112040_Linux-x86-64.zip", "apply": "pre"},
+        {"id": "18370031", "file": "p18370031_112040_Linux-x86-64.zip", "apply": "pre"}
+      ]
+    },
+    "dbca": {
+      "charset": "AL32UTF8",
+      "ncharset": "AL16UTF16",
+      "db_name": "testdb",
+      "domain": null,
+      "db_sid": "testdb",
+      "listeners": "listener",
+      "amm": "FALSE",
+      "memory_mb": 512,
+      "db_type": "MULTIPURPOSE",
+      "mem_pct": null,
+      "db_template": "General_Purpose.dbc",
+      "sample_schemas": "FALSE",
+      "sys_password": "systoto1",
+      "system_password": "systemtoto1",
+      "storage_type": "ASM",
+      "asm_data_dg": "DATA",
+      "initparams": ["compatible=11.2.0.4.0", "sga_target=536870912", "db_create_file_dest='+DATA'", "db_create_online_log_dest_1='+REDO'", "processes=500"],
+      "opatch": [] 
+    }
+  }
+}

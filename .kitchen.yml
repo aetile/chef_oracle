@@ -1,0 +1,62 @@
+---
+driver:
+  name: vagrant
+
+driver_config:
+  require_chef_omnibus: 12.5.1
+
+provisioner:
+  name: chef_zero
+
+platforms:
+  - name: rhel-6.8
+    driver_plugin: vagrant
+    transport:
+      name: ssh
+    driver_config:
+      box:  rhel-6.8
+      provider: virtualbox
+    run_list:
+  - name: rhel-7.3
+    driver_plugin: vagrant
+    transport:
+      name: ssh
+    driver_config:
+      box:  rhel-7.3
+      provider: virtualbox
+    run_list:
+
+
+suites:
+  - name: oracle_db
+    driver_config:
+      vagrantfiles:
+      - Vagrant_Customize.rb
+    run_list:
+      - role[oracle_db]
+      - recipe[chef_oracle::install_files]
+      - recipe[chef_oracle::gi_install]
+      - recipe[chef_oracle::db_install]
+      - recipe[chef_oracle::db_create]
+    attributes:
+      omnibus_updater:
+        version: 12.5.1
+      lvm:
+        enabled: true
+  - name: oracle_rac
+    driver_config:
+      vagrantfiles:
+      - Vagrant_Customize_rac.rb
+      customize:
+        memory: 2048
+        natdnshostresolver1: "on"
+    run_list:
+      - role[oracle_rac]
+      - recipe[chef_oracle::install_files]
+      - recipe[chef_oracle::db_install]
+    attributes:
+      omnibus_updater:
+        version: 12.5.1
+      lvm:
+        enabled: true
+

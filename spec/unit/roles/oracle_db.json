@@ -1,0 +1,112 @@
+
+
+{
+  "name": "oracle_db",
+  "json_class": "Chef::Role",
+  "description": "Oracle database server role",
+  "default_attributes": {
+    "db": {
+      "dbms": "oracle",
+      "version": "11.2.0.4",
+      "cluster": false
+    },
+    "limits": {
+       "params": {
+         "oracle": {
+           "soft": {
+             "memlock": "unlimited",
+             "nofile": 65536,
+             "nproc": 16384
+           },
+           "hard": {
+             "memlock": "unlimited",
+             "nofile": 65536,
+             "nproc": 16384
+           }
+         }
+       }
+    },
+    "sysctl": {
+      "params": {
+        "kernel": {
+          "semmsl": 250,
+          "semmns": 32000,
+          "semopm": 100,
+          "semmni": 128,
+          "sem": "250   32000   100      128",
+          "shmmni": 4096
+        },
+        "net": {
+          "ipv4": {
+            "ip_local_port_range": "9000 65500"
+          },
+          "core": {
+            "rmem_default": 262144,
+            "wmem_default": 262144,
+            "rmem_max": 4194304,
+            "wmem_max": 1048576
+          }
+        },
+        "fs": {
+          "file-max": 6815744,
+          "aio-max-nr": 1048576
+        },
+        "mem": {
+          "hugepages_pct": 80
+        }
+      }
+    }
+  },
+  "override_attributes": {
+    "yum": {
+      "main": {
+        "exclude": "ganglia*"
+      }
+    },
+    "lvm": {
+      "enabled": true,
+      "vgs": {
+        "vg01": {
+          "devices": ["/dev/sdb"],
+          "lvs": {
+            "lv_app": {
+              "mount_point": "/opt/app",
+              "fs_type": "ext4",
+              "default_size": "2G"
+            }
+          }
+        },
+        "vg02": {
+          "devices": ["/dev/sdc"],
+          "lvs": {
+            "lv_app_oracle": {
+              "mount_point": "/opt/app/oracle",
+              "fs_type": "ext4",
+              "default_size": "32G"
+            },
+            "lv_backup": {
+              "mount_point": "/opt/backup/rman",
+              "fs_type": "ext4",
+              "default_size": "10G"
+            },
+            "ora_data_01": {
+              "mount_point": null,
+              "fstype": null,
+               "default_size": "5G"
+            },
+            "ora_redo_01": {
+              "mount_point": null,
+              "fstype": null,
+              "default_size": "1G"
+            }
+          }
+        }
+      }
+    }
+  },
+  "run_list": [
+    "recipe[chef_oracle::oracle_db_pre]"
+  ]
+}
+
+

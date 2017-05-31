@@ -1,0 +1,14 @@
+AllCops:
+  Exclude:
+    - vendor/**
+Metrics/LineLength:
+  Max: 145
+Lint/AmbiguousRegexpLiteral:
+  Enabled: false
+
+Documentation:
+  Enabled: false
+
+# Configuration parameters: EnforcedStyle, MinBodyLength, SupportedStyles.
+Style/Next:
+  MinBodyLength: 10
