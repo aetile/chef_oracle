@@ -8,6 +8,7 @@ gem 'berkshelf', '3.2.3'
 gem 'varia_model', '~> 0.4.0'
 gem 'thor-foodcritic', git: 'https://github.com/reset/thor-foodcritic.git', ref: 'e38a99d539'
 gem 'ridley', '= 4.1.1'
+gem 'net-ssh', '= 4.1.0'
 
 group :chef_gems do
   gem 'rvm', '~> 1.11'
